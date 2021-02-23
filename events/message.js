@@ -16,15 +16,15 @@ module.exports = message => {
   let command = message.content.split(' ')[0].slice(ayarlar.prefix.length);
   let params = message.content.split(' ').slice(1);
   let perms = client.elevation(message);
-  let kayıt2
+  let cmd;
   if (client.commands.has(command)) {
-    kayıt2 = client.commands.get(command);
+    cmd = client.commands.get(command);
   } else if (client.aliases.has(command)) {
-    kayıt2 = client.commands.get(client.aliases.get(command));
+    cmd = client.commands.get(client.aliases.get(command));
   }
-  if (kayıt2) {
-    if (perms < kayıt2.conf.permLevel) return;
-    kayıt2.run(client, message, params, perms);
+  if (cmd) {
+    if (perms < cmd.conf.permLevel) return;
+    cmd.run(client, message, params, perms);
   }
 
 };
